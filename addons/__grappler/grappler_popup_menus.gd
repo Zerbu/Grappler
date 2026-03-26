@@ -35,7 +35,8 @@ static func add_separator(menu: PopupMenu, label: String = ""):
 		menu.add_separator(label)
 	)
 
-## Core helper that hooks into a PopupMenu lifecycle.
+## Used to add items to a popup menu. This is called when the popup menu is
+## opened, so items can even be added to menus that dynamically change.
 ##
 ## - `on_open`: Called when the menu becomes visible (good for injecting items)
 ## - `on_id_pressed`: Called when any item is pressed
