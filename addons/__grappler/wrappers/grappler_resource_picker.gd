@@ -1,0 +1,3 @@
+@tool
+class_name GrapplerResourcePicker
+extends EditorResourcePicker

@@ -1,0 +1,2 @@
+# Grappler
+Grappler is a library containing tools and helpers for creating Godot editor plugins. It allows structured access to certain editor controls to make extending them easier. You can use this for custom menus, tool buttons, and more.

@@ -1,0 +1,3 @@
+@tool
+class_name GrapplerScriptPicker
+extends EditorScriptPicker

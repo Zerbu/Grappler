@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bseg2pmhk4djy"]
+
+[ext_resource type="Script" uid="uid://bb4ms2ra7muvb" path="res://addons/grappler_examples/example_menu.gd" id="1_n2oy5"]
+
+[node name="Grappler Example Menu" type="PopupMenu" unique_id=1302439028]
+oversampling_override = 1.0
+size = Vector2i(298, 100)
+visible = true
+item_count = 3
+item_0/text = "Example 1"
+item_0/id = 0
+item_1/text = "Example 2"
+item_1/id = 1
+item_2/text = "Example 3"
+item_2/id = 2
+script = ExtResource("1_n2oy5")
+
+[connection signal="id_pressed" from="." to="." method="_on_id_pressed"]
