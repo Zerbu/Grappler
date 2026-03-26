@@ -101,4 +101,4 @@ static var asset_library: Control = \
 
 ## Tab container for all bottom panel tabs
 static var bottom_panel: TabContainer = \
-	main_dock_split_container.find_child("EditorBottomPanel", true, false)
+	middle_split_container.find_child("?EditorBottomPanel*", true, false)
