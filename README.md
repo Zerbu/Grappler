@@ -8,5 +8,7 @@ Grappler is a library containing tools and helpers for creating Godot editor plu
 * Custom versions of `EditorResourcePicker`, `EditorInspector` and `EditorScriptPicker` that can be added directly to a scene without having to create them through code.
 
 Grappler currently has helpers for the main editor area, the Scene dock and the FileSystem dock. More may be added in the future.
+
+Take a look at the source code to see everything that is available.
 # Warning
 * It is recommended that Grappler be loaded before any plugin that alters the editor UI, as otherwise it could cause a conflict. The default directory is deliberately named with two underscores (__grappler) to force it to load first.
