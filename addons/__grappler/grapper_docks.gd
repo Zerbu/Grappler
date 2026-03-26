@@ -17,7 +17,7 @@ static var left_dock_1_top_tab_container: TabContainer = \
 
 ## Bottom tab container for left column 1
 static var left_dock_1_bottom_tab_container: TabContainer = \
-	left_dock_container_1.get_child(0)
+	left_dock_container_1.get_child(1)
 
 ## Vertical split for the second column of left-side docks
 static var left_dock_container_2: SplitContainer = \
@@ -29,7 +29,7 @@ static var left_dock_2_top_tab_container: TabContainer = \
 
 ## Bottom tab container for left column 2
 static var left_dock_2_bottom_tab_container: TabContainer = \
-	left_dock_container_2.get_child(0)
+	left_dock_container_2.get_child(1)
 
 ## Vertical split for the first column of right-side docks
 static var right_dock_container_1: SplitContainer = \
@@ -41,7 +41,7 @@ static var right_dock_1_top_tab_container: TabContainer = \
 
 ## Bottom tab container for right column 1
 static var right_dock_1_bottom_tab_container: TabContainer = \
-	left_dock_container_1.get_child(0)
+	left_dock_container_1.get_child(1)
 
 ## Vertical split for the second column of right-side docks
 static var right_dock_container_2: SplitContainer = \
@@ -53,7 +53,7 @@ static var right_dock_2_top_tab_container: TabContainer = \
 
 ## Bottom tab container for right column 2
 static var right_dock_2_bottom_tab_container: TabContainer = \
-	left_dock_container_2.get_child(0)
+	left_dock_container_2.get_child(1)
 
 ## The VBox that wraps the center editor area (main editor + bottom panel)
 static var middle_vbox: VBoxContainer = \
