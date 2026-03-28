@@ -1,11 +1,16 @@
 @tool
-class_name GrapplerBase
 extends Node
 
 ## The editor base control. This is identical to calling
 ## [method EditorInterface.get_base_control]
-static var base: Control = EditorInterface.get_base_control()
+var base: Control
 
 ## The VBox containing everything in the main Godot editor, starting with the
 ## title bar.
-static var root_vbox: Control = base.get_child(0)
+var root_vbox: Control
+
+func _ready() -> void:
+	if not Engine.is_editor_hint():
+		return
+	base = EditorInterface.get_base_control()
+	root_vbox = base.get_child(0)

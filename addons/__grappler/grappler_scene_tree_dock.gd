@@ -230,6 +230,8 @@ var node_popup_menu: PopupMenu
 ## will be called right away. Otherwise, it will be called when
 ## [signal initialized] is emitted.
 func when_initialized(callable: Callable):
+	if not Engine.is_editor_hint():
+		return
 	if is_initialized:
 		callable.call()
 		return
@@ -277,9 +279,14 @@ func _ready() -> void:
 	_try_initialize()
 
 func _try_initialize() -> bool:
-	var dock_base = GrapplerBase.base.find_child("DockHSplitMain", true, false)
+	if not Engine.is_editor_hint():
+		return false
+	
+	var autoload = get_tree().root.get_node("/root/GrapplerBase")
+	
+	var dock_base = autoload.base.find_child("DockHSplitMain", true, false)
 	if dock_base == null:
-		GrapplerBase.base.child_entered_tree.connect(_retry_initialize)
+		autoload.base.child_entered_tree.connect(_retry_initialize)
 		return false
 
 	var dock = dock_base.find_child("Scene", true, false)
@@ -329,4 +336,6 @@ func _try_initialize() -> bool:
 func _retry_initialize():
 	if not _try_initialize():
 		return
-	GrapplerBase.base.child_entered_tree.disconnect(_retry_initialize)
+	
+	var autoload = get_tree().root.get_node("/root/GrapplerBase")
+	autoload.base.child_entered_tree.disconnect(_retry_initialize)

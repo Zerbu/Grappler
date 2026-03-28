@@ -14,9 +14,16 @@ config/name="Grappler"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GrapplerBase="*uid://3im0qkhwduf2"
+GrapplerDocks="*uid://dso2mkx2gsh61"
+GrapplerSceneTreeDock="*uid://bghspg0ybm4mb"
+GrapplerTitleBar="*uid://crg6t23l1gswf"
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/__grappler/plugin.cfg", "res://addons/grappler_examples/plugin.cfg", "res://addons/zylann.editor_debugger/plugin.cfg")
+enabled=PackedStringArray("res://addons/__grappler/plugin.cfg", "res://addons/zylann.editor_debugger/plugin.cfg")
 
 [physics]
 
