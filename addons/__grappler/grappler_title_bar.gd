@@ -112,7 +112,7 @@ var asset_lib_button: Button
 ##
 ## Note: When accessing members in [class GrapplerTitleBar], it is
 ## recommended you do so from inside [method when_initialized].
-var run_bar: HBoxContainer
+var run_bar: Control
 
 ## Inner container for run buttons
 ##
@@ -174,10 +174,8 @@ func when_initialized(callable: Callable):
 		return
 	initialized.connect(callable)
 
-
 func _ready() -> void:
 	_try_initialize()
-
 
 func _try_initialize() -> bool:
 	if not Engine.is_editor_hint():
@@ -185,7 +183,8 @@ func _try_initialize() -> bool:
 
 	var autoload = get_tree().root.get_node("/root/GrapplerBase")
 
-	title_bar = autoload.find_child("?EditorTitleBar*", true, false)
+	title_bar = autoload.base.find_child("?EditorTitleBar*", true, false)
+
 	if title_bar == null:
 		autoload.child_entered_tree.connect(_retry_initialize)
 		return false
