@@ -1,8 +1,8 @@
 @tool
 extends Node
 
-## The editor base control. This is identical to calling
-## [method EditorInterface.get_base_control]
+## The editor base control.
+## This is identical to [method EditorInterface.get_base_control]
 var base: Control
 
 ## The VBox containing everything in the main Godot editor, starting with the
