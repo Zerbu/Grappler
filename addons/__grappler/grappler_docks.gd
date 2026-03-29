@@ -1,169 +1,117 @@
+'''
+MIT License
+
+Copyright (c) 2026 Zerbu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+'''
+
 @tool
-## Provides easy access to all major editor dock containers and panels.
+## Provides structured access to all major editor dock containers and panels.
 extends Node
 
-## Emitted when the helper class is initialized
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Emitted when the helper class is initialized.
 signal initialized
 
-## Whether or not the helper class is initialized
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## [constant true] if the helper class is initialized,
+## [constant false] otherwise.
 var is_initialized: bool = false
 
-
-## The root horizontal split that contains *everything* (left, middle, right docks)
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## The topmost horizontal split that contains everything.
+## (left, middle, right docks)
 var root_dock_split_container: SplitContainer
 
-## Vertical split for the first column of left-side docks
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Vertical split for the first column of left-side docks.
 var left_dock_container_1: SplitContainer
 
-## Top tab container for left column 1
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Top tab container for left column 1.
 var left_dock_1_top_tab_container: TabContainer
 
-## Bottom tab container for left column 1
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Bottom tab container for left column 1.
 var left_dock_1_bottom_tab_container: TabContainer
 
-## Vertical split for the second column of left-side docks
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Vertical split for the second column of left-side docks.
 var left_dock_container_2: SplitContainer
 
-## Top tab container for left column 2
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Top tab container for left column 2.
 var left_dock_2_top_tab_container: TabContainer
 
-## Bottom tab container for left column 2
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Bottom tab container for left column 2.
 var left_dock_2_bottom_tab_container: TabContainer
 
-## Vertical split for the first column of right-side docks
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Vertical split for the first column of right-side docks.
 var right_dock_container_1: SplitContainer
 
-## Top tab container for right column 1
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Top tab container for right column 1.
 var right_dock_1_top_tab_container: TabContainer
 
-## Bottom tab container for right column 1
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Bottom tab container for right column 1.
 var right_dock_1_bottom_tab_container: TabContainer
 
-## Vertical split for the second column of right-side docks
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Vertical split for the second column of right-side docks.
 var right_dock_container_2: SplitContainer
 
-## Top tab container for right column 2
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Top tab container for right column 2.
 var right_dock_2_top_tab_container: TabContainer
 
-## Bottom tab container for right column 2
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## Bottom tab container for right column 2.
 var right_dock_2_bottom_tab_container: TabContainer
 
 ## The VBox that wraps the center editor area (main editor + bottom panel)
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
 var middle_vbox: VBoxContainer
 
-## Vertical split inside the middle area (main editor + bottom panel)
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## The vertical split inside the middle area (main editor + bottom panel)
 var middle_split_container: SplitContainer
 
-## Split between main editor and bottom panel
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## The split between main editor and bottom panel
 var main_dock_split_container: VSplitContainer
 
-## VBox holding tabs + main editor view
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## The VBox holding the main editor view an scene tabs.
 var main_dock_vbox: VBoxContainer
 
 ## Scene tabs (top bar with open scenes)
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
 var main_dock_scene_tabs: Node
 
-## The main content area (containing 2D, 3D, Script, or whatever is selected)
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## The main content area (2D, 3D, Script, or whatever is selected)
 var main_dock_main_screen: Node
 
-## 2D + UI editor
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## The main "2D" editor.
 var node_2d_and_ui_editor: BoxContainer
 
-## 3D editor
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## The main "3D" editor.
 var node_3d_editor: BoxContainer
 
-## Script editor
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## The main "Script" editor.
 var script_editor: ScriptEditor
 
-## Game preview
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## The main "Game" view.
 var game_view: BoxContainer
 
-## Asset Library panel
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## The main "AssetLib" view.
 var asset_library: Control
 
-## Tab container for all bottom panel tabs
-##
-## Note: When accessing members in [class GrapplerDocks], it is
-## recommended you do so from inside [method when_initialized].
+## The tab container at the bottom.
+## It contains Output, Debugger, Audio, Animation and various others.
 var bottom_panel: TabContainer
+
+func _ready() -> void:
+	_try_initialize()
 
 ## If the helper class is initialized, the [param callable] parameter
 ## will be called right away. Otherwise, it will be called when
@@ -176,9 +124,10 @@ func when_initialized(callable: Callable):
 		return
 	initialized.connect(callable)
 
-func _ready() -> void:
-	_try_initialize()
-
+## Try to initialize the helper class.
+## Returns [constant true] if initialized successfully.
+## Returns [constant false] otherwise.
+## Always returns [constant false] if not running from the editor.
 func _try_initialize() -> bool:
 	if not Engine.is_editor_hint():
 		return false
@@ -229,8 +178,7 @@ func _try_initialize() -> bool:
 	return true
 
 func _retry_initialize():
-	if not _try_initialize():
-		return
+	if not _try_initialize(): return
 	
 	var autoload = get_tree().root.get_node("/root/GrapplerBase")
 	autoload.root_vbox.child_entered_tree.disconnect(_retry_initialize)

@@ -18,3 +18,4 @@ mono_crash.*.json
 # Other addons used to assist with creation (should not be included in the repository)
 addons/zylann.editor_debugger
 addons/zylann.editor_debugger/*
+project.godot

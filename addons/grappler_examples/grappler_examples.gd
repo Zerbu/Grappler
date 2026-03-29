@@ -1,13 +1,20 @@
 @tool
 extends EditorPlugin
 
-var example_menu = load(
-	"res://addons/__grappler/addons/grappler_examples/example_menu.tscn").instantiate()
+static var ADDON_PATH: String
+
+var example_menu: PopupMenu
 
 var title_bar_button: Button
 var run_bar_button: Button
 
 func _enter_tree() -> void:
+	ADDON_PATH = get_script().resource_path.get_base_dir()
+	
+	example_menu = load("%s/example_menu.tscn" % [
+		ADDON_PATH
+	]).instantiate()
+	
 	GrapplerTitleBar.when_initialized(func():
 		GrapplerTitleBar.add_to_main_menu(example_menu)
 		

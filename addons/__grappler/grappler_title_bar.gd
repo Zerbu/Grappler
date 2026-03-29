@@ -1,3 +1,27 @@
+'''
+MIT License
+
+Copyright (c) 2026 Zerbu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+'''
+
 @tool
 ## Provides access and utilities for the editor's top title bar.
 extends Node
@@ -10,173 +34,106 @@ extends Node
 ## has not finished building yet.
 signal initialized
 
-## Whether or not the helper class is initialized
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the editor UI
-## has not finished building yet.
+## [constant true] if the helper class is initialized,
+## [constant false] otherwise.
 var is_initialized: bool = false
 
-## Root title bar container at the top of the editor
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var title_bar: BoxContainer
+## The title bar at the top of the editor.
+## It contains the main menu, main screen buttons, and run bar.
+var title_bar:					BoxContainer
 
-## Top menu bar container
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var main_menu: MenuBar
+## The menu bar (containing Scene, Project, etc)
+var menu_bar:					MenuBar
 
-## Scene menu (scene operations)
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var scene_menu: PopupMenu
+## The menu bar's "Scene" menu
+var scene_menu:					PopupMenu
 
-## Project menu (project settings, export, etc.)
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var project_menu: PopupMenu
+## The menu bar's "Project" menu
+var project_menu:				PopupMenu
 
-## Debug menu (debugging tools)
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var debug_menu: PopupMenu
+## The menu bar's "Debug" menu
+var debug_menu:					PopupMenu
 
-## Editor menu (layout, docks, editor settings)
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var editor_menu: PopupMenu
+## The menu bar's "Editor" menu
+var editor_menu:				PopupMenu
 
-## Help menu (docs, about, etc.)
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var help_menu: PopupMenu
+## The menu bar's "Help" menu
+var help_menu:					PopupMenu
 
-## Menu for showing/hiding docks
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var editor_docks_menu: PopupMenu
+## The "Editor Docks" menu.
+## Located at Editor > Editor Docks
+var editor_docks_menu:			PopupMenu
 
-## Menu for saving/loading editor layouts
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var editor_layouts_menu: PopupMenu
+## The "Editor Layouts" menu.
+## Located at Editor > Editor Layouts
+var editor_layouts_menu:		PopupMenu
 
-## Container holding main editor mode buttons
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var main_screen_buttons: BoxContainer
+## The container holding the main screen buttons (2D, Script, etc)
+var main_screen_buttons:		BoxContainer
 
-## Switch to 2D editor
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var button_2d: Button
+## The main "2D" button at the top of the editor.
+var button_2d:					Button
 
-## Switch to 3D editor
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var button_3d: Button
+## The main "3D" button at the top of the editor.
+var button_3d:					Button
 
-## Switch to Script editor
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var script_button: Button
+## The main "Script" button at the top of the editor.
+var script_button:				Button
 
-## Switch to Game view (running scene)
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var game_button: Button
+## The main "Game" button at the top of the editor.
+var game_button:				Button
 
-## Switch to Asset Library
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var asset_lib_button: Button
+## The main "AssetLib" button at the top of the editor.
+var asset_lib_button:			Button
 
-## Container holding run controls
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var run_bar: Control
+## The run bar, containing the "Run Project" button and others.
+var run_bar:					Control
 
-## Inner container for run buttons
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var run_bar_buttons: HBoxContainer
+## The HBox containing all the [member run_bar] buttons.
+var run_bar_buttons:			HBoxContainer
 
-## Run the entire project
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var run_project_button: Button
+## The run bar's "Run Project" button.
+var run_project_button:			Button
 
-## Pause the running project
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var pause_project_button: Button
+## The run bar's "Pause Project" button.
+## Visible when the project is running.
+var pause_project_button:		Button
 
-## Stop the running project
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var stop_project_button: Button
+## The run bar's "Stop Project" button.
+## Visible when the project is running.
+var stop_project_button:		Button
 
-## Remote deploy options (devices, etc.)
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var remote_deploy_menu: BoxContainer
+## The run bar's "Remote Deploy" container.
+var remote_deploy_menu:			BoxContainer
 
-## Run currently open scene
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var run_current_scene_button: Button
+## The run bar's "Run Current Scene" button.
+var run_current_scene_button:	Button
 
-## Run a specific scene
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var run_specific_scene_button: Button
+## The run bar's "Run Specific Scene" button.
+var run_specific_scene_button:	Button
 
-## Movie maker / capture tools
-##
-## Note: When accessing members in [class GrapplerTitleBar], it is
-## recommended you do so from inside [method when_initialized].
-var movie_maker_menu: PanelContainer
-
-
-## If the helper class is initialized, the [param callable] parameter
-## will be called right away. Otherwise, it will be called when
-## [signal initialized] is emitted.
-func when_initialized(callable: Callable):
-	if not Engine.is_editor_hint():
-		return
-	if is_initialized:
-		callable.call()
-		return
-	initialized.connect(callable)
+## The run bar's "Movie Maker" menu.
+var movie_maker_menu:			PanelContainer
 
 func _ready() -> void:
 	_try_initialize()
 
+## If the helper class is initialized, [param callable] will be called.
+## Otherwise, it will be stored and called when [member initialized]
+## is emitted.
+func when_initialized(callable: Callable):
+	if not Engine.is_editor_hint(): return
+
+	if is_initialized:
+		callable.call()
+		return
+
+	initialized.connect(callable)
+
+## Try to initialize the helper class.
+## Returns [constant true] if initialized successfully.
+## Returns [constant false] otherwise.
+## Always returns [constant false] if not running from the editor.
 func _try_initialize() -> bool:
 	if not Engine.is_editor_hint():
 		return false
@@ -189,13 +146,13 @@ func _try_initialize() -> bool:
 		autoload.child_entered_tree.connect(_retry_initialize)
 		return false
 
-	main_menu = title_bar.find_child("?MenuBar*", false, false)
+	menu_bar = title_bar.find_child("?MenuBar*", false, false)
 
-	scene_menu = main_menu.get_child(0)
-	project_menu = main_menu.get_child(1)
-	debug_menu = main_menu.get_child(2)
-	editor_menu = main_menu.get_child(3)
-	help_menu = main_menu.get_child(4)
+	scene_menu = menu_bar.get_child(0)
+	project_menu = menu_bar.get_child(1)
+	debug_menu = menu_bar.get_child(2)
+	editor_menu = menu_bar.get_child(3)
+	help_menu = menu_bar.get_child(4)
 
 	editor_docks_menu = editor_menu.get_child(0)
 	editor_layouts_menu = editor_menu.get_child(1)
@@ -212,7 +169,8 @@ func _try_initialize() -> bool:
 	if run_bar:
 		run_bar = run_bar.get_child(0)
 
-	run_bar_buttons = run_bar.find_child("?PanelContainer*", false, false).get_child(0)
+	run_bar_buttons = run_bar.find_child(
+		"?PanelContainer*", false, false).get_child(0)
 
 	run_project_button = run_bar_buttons.get_child(0)
 	pause_project_button = run_bar_buttons.get_child(1)
@@ -233,52 +191,43 @@ func _retry_initialize():
 	var autoload = get_tree().root.get_node("/root/GrapplerBase")
 	autoload.child_entered_tree.disconnect(_retry_initialize)
 
-## Adds a PopupMenu to the main menu bar
+## Adds a PopupMenu to the [member menu_bar].
 func add_to_main_menu(popup_menu: PopupMenu) -> void:
 	popup_menu.hide() # Prevent flashing when added 👀
-	main_menu.add_child(popup_menu)
+	menu_bar.add_child(popup_menu)
 	
-## Removes a PopupMenu from the main menu bar
+## Removes a PopupMenu from the [member menu_bar].
 func remove_from_main_menu(popup_menu: PopupMenu) -> void:
-	main_menu.remove_child(popup_menu)
+	menu_bar.remove_child(popup_menu)
 
-## Adds a control to the main screen button row
+## Adds a control to [member main_screen_buttons].
 func add_to_main_screen_buttons(control: Control) -> void:
 	main_screen_buttons.add_child(control)
 
-## Removes a control from the main screen button row
+## Removes a control from [member main_screen_buttons].
 func remove_from_main_screen_buttons(control: Control) -> void:
 	main_screen_buttons.remove_child(control)
 
-## Switches editor screen using a button name or text
+## Switches the main editor screen using text.
 ##
 ## Example inputs: "2D", "3D", "Script", "Game", "AssetLib"
 func set_main_screen_from_string(text: String) -> void:
 	var button = main_screen_buttons.get_node_or_null(text)
 	
 	if not button:
-		button = GrapplerButtons.get_button_by_text(main_screen_buttons, text)
+		button = GrapplerButtonUtils.get_button_by_text(
+			main_screen_buttons, text)
 	
 	if not button:
 		return
-	
-	# Simulate pressing the button
-	GrapplerButtons.simulate_press(button)
 
-## Adds a control to the run bar at a specific position
+	GrapplerButtonUtils.simulate_press(button)
+
+## Adds a control to [member run_bar].
 func add_to_run_bar(control: Control, index: int = -1) -> void:
 	run_bar.add_child(control)
 	run_bar.move_child(control, index)
 
-## Removes a control from the run bar
+## Removes a control from [member run_bar].
 func remove_from_run_bar(control: Control) -> void:
 	run_bar.remove_child(control)
-
-## Adds a control anywhere on the title bar
-func add_to_title_bar(control: Control, index: int = -1) -> void:
-	title_bar.add_child(control)
-	title_bar.move_child(control, index)
-
-## Removes a control from the title bar
-func remove_from_title_bar(control: Control) -> void:
-	title_bar.remove_child(control)

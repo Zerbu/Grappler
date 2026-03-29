@@ -22,12 +22,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
 
-@tool
-class_name GrapplerInspector
-extends EditorInspector
+## Utility helpers for working with Button nodes in the editor.
+class_name GrapplerButtonUtils
+extends Node
 
-@export var editing_resource: Resource:
-	get: return get_edited_object()
-	set(value):
-		editing_resource = value
-		edit(value)
+## Searches direct children of a node for a Button with matching text.
+static func get_button_by_text(parent: Node, text: String) -> Button:
+	for child: Node in parent.get_children():
+		if child is not Button:
+			continue
+		var button = child as Button
+		if button.text == text:
+			return button
+	
+	return null
+
+## Simulates a button press by emitting its `pressed` signal.
+static func simulate_press(button: Button) -> void:
+	button.pressed.emit()

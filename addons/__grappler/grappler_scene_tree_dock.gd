@@ -1,229 +1,128 @@
+'''
+MIT License
+
+Copyright (c) 2026 Zerbu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+'''
+
 @tool
 ## Provides structured access to the Scene Tree dock and its UI elements.
 extends Node
 
-## Emitted when the helper class is initialized
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## Emitted when the helper class is initialized.
 signal initialized
 
-## Whether or not the helper class is initialized
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
-var is_initialized: bool = true
+## [constant true] if the helper class is initialized,
+## [constant false] otherwise.
+var is_initialized: bool = false
 
-## Root Scene Tree dock panel
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The scene tree dock itself.
 var scene_tree_dock: EditorDock
 
-## Main vertical layout of the dock
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The main vertical container of the dock.
 var scene_tree_dock_vbox: VBoxContainer
 
-## Top row containing core scene actions
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The top row containing scene actions.
 var scene_tree_main_header: HBoxContainer
 
-## Add child node button (+)
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Add Child Node" button.
 var add_child_node_button: Button
 
-## Instantiate scene button (chain link icon)
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Instantiate Child Scene" button.
 var instantiate_child_scene_button: Button
 
-## Filter/search nodes input
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Filter Nodes" line edit.
 var filter_nodes_line_edit: LineEdit
 
-## Attach script button
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Attach Script" button.
 var attach_script_button: Button
 
-## Remove script button
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Remove Script" button.
 var remove_script_button: Button 
 
-## Change script button
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Change Script" button.
 var change_script_button: Button
 
-## Header for switching between local and remote scene trees
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The header containing "Local" and "Remote" buttons.
+## Only visible while the project is running.
 var remote_local_header: HBoxContainer
 
-## Switch to remote scene tree (running game)
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Remote" button.
+## Only visible while the project is running.
 var remote_button: Button
 
-## Switch to local scene tree (editor scene)
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Local" button.
+## Only visible while the project is running.
 var local_button: Button
 
-## Container holding either "Add Root Node" UI or the scene tree
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The container holding either the "Add Root Node" UI or the scene tree,
+## depending on whether 
 var main_margin_container: MarginContainer
 
-## Container shown when no root node exists
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Add Root Node" vertical container [b]outside[/b] the scroll container.
+## Shown whene the scene is empty.
 var add_root_node_vbox: VBoxContainer
 
-## Scroll container for root node options
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Add Root Node" scroll container.
+## Shown whene the scene is empty.
 var add_root_node_scroll_container: ScrollContainer
 
-## Inner layout for scroll content
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Add Root Node" vertical container [b]inside[/b] the scroll container.
+## Shown whene the scene is empty.
 var add_root_node_scroll_container_vbox: VBoxContainer
 
-## Header for the "Add Root Node" menu
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The header for the "Add Root Node" menu.
+## Shown whene the scene is empty.
 var add_root_node_header: HBoxContainer
 
-## Container holding main root node buttons
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Add Root Node" buttons.
+## Shown whene the scene is empty.
 var add_root_node_buttons: VBoxContainer
 
-## Quick-create 2D root node
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The button create a root "2D Scene" node.
+## Shown whene the scene is empty.
 var add_root_node_2d_button: Button
 
-## Quick-create 3D root node
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The button create a root "3D Scene" node.
+## Shown whene the scene is empty.
 var add_root_node_3d_button: Button
 
-## Quick-create UI root node
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The button create a root "User Interface" node.
+## Shown whene the scene is empty.
 var add_root_node_ui_button: Button
 
-## "Other Node" button (opens full node list)
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The button create a root "Other Node" node.
+## Shown whene the scene is empty.
 var add_root_node_other_button: Button
 
-## Paste node from clipboard
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The "Paste from Clipboard" button.
+## Shown whene the scene is empty.
 var add_root_node_paste_button: Button
 
-## SceneTreeEditor wrapper control
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The container for the main scene tree.
 var main_scene_tree_editor: Control
 
-## Actual Tree node displaying hierarchy
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The main scene tree, containing all the nodes.
 var main_scene_tree: Tree
 
-## Right-click menu for nodes in the scene tree
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## The right-click context menu for the scene tree.
 var node_popup_menu: PopupMenu
 
 ## If the helper class is initialized, the [param callable] parameter
@@ -237,41 +136,21 @@ func when_initialized(callable: Callable):
 		return
 	initialized.connect(callable)
 
-## Adds a control to the main header
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## Adds a control to the main header of the scene tree dock.
 func add_to_scene_tree_main_header(control: Control, index: int = -1):
 	scene_tree_main_header.add_child(control)
 	scene_tree_main_header.move_child(control, index)
 
-## Removes a control from the main header
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## Removes a control from the main header of the scene tree dock.
 func remove_from_scene_tree_main_header(control: Control):
 	scene_tree_dock_vbox.remove_child(control)
 
-## Adds a control to the "Add Root Node" button list
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## Adds a control to the "Add Root Node" button list.
 func add_to_root_node_buttons(control: Control, index: int = -1):
 	add_root_node_buttons.add_child(control)
 	add_root_node_buttons.move_child(control, index)
 
-## Removes a control from the "Add Root Node" buttons
-##
-## Note: When accessing members in [class GrapplerSceneTreeDock], it is
-## recommended you do so from inside [method when_initialized].
-## This ensures your plugin will work even if the project was
-## launched with the scene tree dock disabled.
+## Removes a control from the "Add Root Node" button list.
 func remove_from_add_root_node_buttons(control: Control):
 	scene_tree_dock_vbox.remove_child(control)
 
