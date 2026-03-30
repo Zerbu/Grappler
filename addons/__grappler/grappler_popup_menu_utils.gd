@@ -23,7 +23,7 @@ SOFTWARE.
 '''
 
 ## Utility helpers for extending and interacting with PopupMenu nodes.
-class_name GrapplerPopupMenus
+class_name GrapplerPopupMenuUtils
 extends Object
 
 ## Adds an item with an icon to a PopupMenu and binds an action to its ID.

@@ -110,6 +110,21 @@ var asset_library: Control
 ## It contains Output, Debugger, Audio, Animation and various others.
 var bottom_panel: TabContainer
 
+## The "Output" dock.
+var output_dock: EditorDock
+
+## The "Debugger" dock.
+var debugger_dock: EditorDock
+
+## The "Audio" dock.
+var audio_dock: EditorDock
+
+## The "Animation" dock.
+var animation_dock: EditorDock
+
+## The "Shader Editor" dock.
+var shader_editor_dock: EditorDock
+
 func _ready() -> void:
 	_try_initialize()
 
@@ -171,6 +186,12 @@ func _try_initialize() -> bool:
 	asset_library = main_dock_main_screen.find_child("?EditorAssetLibrary*", true, false)
 
 	bottom_panel = middle_split_container.find_child("?EditorBottomPanel*", true, false)
+
+	output_dock = bottom_panel.find_child("Output", false, false)
+	debugger_dock = bottom_panel.find_child("Debugger", false, false)
+	audio_dock = bottom_panel.find_child("AudioBuses", false, false)
+	animation_dock = bottom_panel.find_child("Animation", false, false)
+	shader_editor_dock = bottom_panel.find_child("Shader Editor", false, false)
 
 	is_initialized = true
 	initialized.emit()

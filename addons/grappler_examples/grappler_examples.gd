@@ -18,15 +18,6 @@ func _enter_tree() -> void:
 	GrapplerTitleBar.when_initialized(func():
 		GrapplerTitleBar.add_to_main_menu(example_menu)
 		
-		title_bar_button = Button.new()
-		title_bar_button.text = "Example Title Bar Button"
-		title_bar_button.pressed.connect(func():
-			GrapplerWindows.open_simple_accept_dialog(
-				"This button was added with: " +
-				"GrapplerTitleBar.add_to_title_bar")
-		)
-		GrapplerTitleBar.add_to_title_bar(title_bar_button)
-		
 		run_bar_button = Button.new()
 		run_bar_button.text = "Example Run Bar Button"
 		run_bar_button.pressed.connect(func():
