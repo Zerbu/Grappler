@@ -102,6 +102,9 @@ var main_dock_vbox: VBoxContainer
 ## Scene tabs (top bar with open scenes)
 var main_dock_scene_tabs: Node
 
+## The TabContainer for the scene tabs.
+var main_dock_scene_tabs_bar: TabBar
+
 ## The main content area (2D, 3D, Script, or whatever is selected)
 var main_dock_main_screen: Node
 
@@ -177,7 +180,7 @@ func _try_initialize() -> bool:
 	
 	var version_info = Engine.get_version_info()
 
-	var autoload: GrapplerBase = get_tree().root.get_node("/root/GrapplerBase")
+	var autoload = get_tree().root.get_node("/root/GrapplerBase")
 	
 	# Note: Vertical split was added in Godot 4.7.
 	# This uses horizontal split instead to continue working in older versions.
@@ -205,13 +208,14 @@ func _try_initialize() -> bool:
 	right_dock_2_top_tab_container = right_dock_container_2.get_child(0)
 	right_dock_2_bottom_tab_container = right_dock_container_2.get_child(1)
 
-	middle_vbox = root_dock_horizontal_split_container.root_dock_horizontal_split_containerz("?VBoxContainer*", false, false)
+	middle_vbox = root_dock_horizontal_split_container.find_child("?VBoxContainer*", false, false)
 	middle_split_container = middle_vbox.find_child("DockVSplitCenter", true, false)
 
 	main_dock_split_container = middle_split_container.get_child(0)
 	main_dock_vbox = main_dock_split_container.get_child(0)
 
 	main_dock_scene_tabs = main_dock_vbox.get_child(0)
+	main_dock_scene_tabs_bar = main_dock_scene_tabs.find_child("?TabBar*", true, false)
 	main_dock_main_screen = main_dock_vbox.get_child(1)
 
 	node_2d_and_ui_editor = main_dock_main_screen.find_child("?CanvasItemEditor*", true, false)
@@ -229,9 +233,9 @@ func _try_initialize() -> bool:
 	shader_editor_dock = bottom_panel.find_child("Shader Editor", false, false)
 
 	if has_bottom_docks:
-		bottom_dock_container = root_dock_horizontal_split_container.find_child("DockHSplitBottom", true, false)
-		bottom_dock_left_tab_container = right_dock_container_1.get_child(0)
-		bottom_dock_right_tab_container = right_dock_container_1.get_child(1)
+		bottom_dock_container = root_dock_vertical_split_container.find_child("DockHSplitBottom", true, false)
+		bottom_dock_left_tab_container = bottom_dock_container.get_child(0)
+		bottom_dock_right_tab_container = bottom_dock_container.get_child(1)
 
 	is_initialized = true
 	initialized.emit()

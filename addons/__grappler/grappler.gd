@@ -41,3 +41,5 @@ func _disable_plugin() -> void:
 
 func _enter_tree() -> void:
 	ADDON_PATH = get_script().resource_path.get_base_dir()
+	
+	#GrapplerDocks.bottom_dock_left_tab_container.tabs_visible = false
