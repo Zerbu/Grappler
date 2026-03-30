@@ -33,9 +33,23 @@ signal initialized
 ## [constant false] otherwise.
 var is_initialized: bool = false
 
-## The topmost horizontal split that contains everything.
+## [constant true] if using a Godot version with bottom docks (4.7+).
+## [constant false] otherwise.
+var has_bottom_docks:
+	get:
+		if not has_bottom_docks:
+			var version_info = Engine.get_version_info()
+			has_bottom_docks = version_info["major"] >= 4 and version_info["minor"] >= 7
+		return has_bottom_docks
+
+## The topmost vertical split that contains all docks.
+## (Godot 4.7+ Only)
+var root_dock_vertical_split_container: SplitContainer
+
+## The topmost horizontal split that contains most docks.
+## This excludes the bottom docks ae with 4.7+.
 ## (left, middle, right docks)
-var root_dock_split_container: SplitContainer
+var root_dock_horizontal_split_container: SplitContainer
 
 ## Vertical split for the first column of left-side docks.
 var left_dock_container_1: SplitContainer
@@ -125,6 +139,20 @@ var animation_dock: EditorDock
 ## The "Shader Editor" dock.
 var shader_editor_dock: EditorDock
 
+## Vertical split for the docks at the bottom of the editor.
+## (Godot 4.7+ Only)
+var bottom_dock_container: SplitContainer
+
+## Left tab container for bottom docks.
+var bottom_dock_left_tab_container: TabContainer
+
+## Right tab container for bottom docks.
+var bottom_dock_right_tab_container: TabContainer
+
+## The topmost horizontal split that contains everything.
+## (left, middle, right docks)
+var bottom_dock_split_container: SplitContainer
+
 func _ready() -> void:
 	_try_initialize()
 
@@ -146,31 +174,38 @@ func when_initialized(callable: Callable):
 func _try_initialize() -> bool:
 	if not Engine.is_editor_hint():
 		return false
+	
+	var version_info = Engine.get_version_info()
 
-	var autoload = get_tree().root.get_node("/root/GrapplerBase")
-	root_dock_split_container = autoload.root_vbox.find_child("DockHSplitMain", true, false)
-	if root_dock_split_container == null:
-		
+	var autoload: GrapplerBase = get_tree().root.get_node("/root/GrapplerBase")
+	
+	# Note: Vertical split was added in Godot 4.7.
+	# This uses horizontal split instead to continue working in older versions.
+	root_dock_horizontal_split_container = autoload.root_vbox.find_child("DockHSplitMain", true, false)
+	if root_dock_horizontal_split_container == null:
 		autoload.root_vbox.child_entered_tree.connect(_retry_initialize)
 		return false
 
-	left_dock_container_1 = root_dock_split_container.find_child("DockVSplitLeftL", true, false)
+	if has_bottom_docks:
+		root_dock_vertical_split_container = autoload.root_vbox.find_child("DockVSplitMain", true, false)
+
+	left_dock_container_1 = root_dock_horizontal_split_container.find_child("DockVSplitLeftL", true, false)
 	left_dock_1_top_tab_container = left_dock_container_1.get_child(0)
 	left_dock_1_bottom_tab_container = left_dock_container_1.get_child(1)
 
-	left_dock_container_2 = root_dock_split_container.find_child("DockVSplitLeftR", true, false)
+	left_dock_container_2 = root_dock_horizontal_split_container.find_child("DockVSplitLeftR", true, false)
 	left_dock_2_top_tab_container = left_dock_container_2.get_child(0)
 	left_dock_2_bottom_tab_container = left_dock_container_2.get_child(1)
 
-	right_dock_container_1 = root_dock_split_container.find_child("DockVSplitRightL", true, false)
+	right_dock_container_1 = root_dock_horizontal_split_container.find_child("DockVSplitRightL", true, false)
 	right_dock_1_top_tab_container = right_dock_container_1.get_child(0)
 	right_dock_1_bottom_tab_container = right_dock_container_1.get_child(1)
 
-	right_dock_container_2 = root_dock_split_container.find_child("DockVSplitRightR", true, false)
+	right_dock_container_2 = root_dock_horizontal_split_container.find_child("DockVSplitRightR", true, false)
 	right_dock_2_top_tab_container = right_dock_container_2.get_child(0)
 	right_dock_2_bottom_tab_container = right_dock_container_2.get_child(1)
 
-	middle_vbox = root_dock_split_container.find_child("?VBoxContainer*", false, false)
+	middle_vbox = root_dock_horizontal_split_container.root_dock_horizontal_split_containerz("?VBoxContainer*", false, false)
 	middle_split_container = middle_vbox.find_child("DockVSplitCenter", true, false)
 
 	main_dock_split_container = middle_split_container.get_child(0)
@@ -192,6 +227,11 @@ func _try_initialize() -> bool:
 	audio_dock = bottom_panel.find_child("AudioBuses", false, false)
 	animation_dock = bottom_panel.find_child("Animation", false, false)
 	shader_editor_dock = bottom_panel.find_child("Shader Editor", false, false)
+
+	if has_bottom_docks:
+		bottom_dock_container = root_dock_horizontal_split_container.find_child("DockHSplitBottom", true, false)
+		bottom_dock_left_tab_container = right_dock_container_1.get_child(0)
+		bottom_dock_right_tab_container = right_dock_container_1.get_child(1)
 
 	is_initialized = true
 	initialized.emit()
