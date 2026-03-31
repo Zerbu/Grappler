@@ -32,6 +32,7 @@ func _enable_plugin() -> void:
 	add_autoload_singleton("GrapplerDocks",         "grappler_docks.gd")
 	add_autoload_singleton("GrapplerLayoutsDialog", "grappler_layouts_dialog.gd")
 	add_autoload_singleton("GrapplerSceneTreeDock", "grappler_scene_tree_dock.gd")
+	add_autoload_singleton("GrapplerSignalsDock",   "grappler_signals_dock.gd")
 	add_autoload_singleton("GrapplerTitleBar",      "grappler_title_bar.gd")
 
 func _disable_plugin() -> void:
@@ -39,9 +40,8 @@ func _disable_plugin() -> void:
 	remove_autoload_singleton("GrapplerDocks")
 	remove_autoload_singleton("GrapplerLayoutsDialog")
 	remove_autoload_singleton("GrapplerSceneTreeDock")
+	remove_autoload_singleton("GrapplerSignalsDock")
 	remove_autoload_singleton("GrapplerTitleBar")
 
 func _enter_tree() -> void:
 	ADDON_PATH = get_script().resource_path.get_base_dir()
-	
-	#GrapplerDocks.bottom_dock_left_tab_container.tabs_visible = false

@@ -169,8 +169,7 @@ func _try_initialize() -> bool:
 	if run_bar:
 		run_bar = run_bar.get_child(0)
 
-	run_bar_buttons = run_bar.find_child(
-		"?PanelContainer*", false, false).get_child(0)
+	run_bar_buttons = run_bar.find_child("?PanelContainer*", false, false).get_child(0)
 
 	run_project_button = run_bar_buttons.get_child(0)
 	pause_project_button = run_bar_buttons.get_child(1)
