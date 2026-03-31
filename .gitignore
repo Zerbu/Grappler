@@ -21,3 +21,4 @@ addons/zylann.editor_debugger/*
 addons/workspaces
 addons/workspaces/*
 project.godot
+workspaces.tres
