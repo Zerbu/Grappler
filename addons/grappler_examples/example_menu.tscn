@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bseg2pmhk4djy"]
 
-[ext_resource type="Script" uid="uid://bb4ms2ra7muvb" path="res://addons/grappler-examples/example_menu.gd" id="1_n2oy5"]
+[ext_resource type="Script" uid="uid://bb4ms2ra7muvb" path="res://addons/grappler_examples/example_menu.gd" id="1_n2oy5"]
 
 [node name="Grappler Example Menu" type="PopupMenu" unique_id=1302439028]
 oversampling_override = 1.0
