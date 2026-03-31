@@ -6,7 +6,8 @@
 [sub_resource type="Resource" id="Resource_odcxn"]
 script = ExtResource("2_jn25a")
 workspace_name = "Default"
-layout_name = "Default"
+layout_name = "Default2"
+force_save_layout = true
 hide_tabs_bottom_left = true
 hide_tabs_bottom_right = true
 
@@ -14,9 +15,10 @@ hide_tabs_bottom_right = true
 script = ExtResource("2_jn25a")
 workspace_name = "Scripting"
 layout_name = "Scripting"
-filesystem_auto_navigate = "res://workspaces.tres"
+filesystem_auto_navigate = "res://addons/workspaces/workspaces.gd"
 auto_set_file_on_unapply = true
 auto_set_main_screen = "Script"
+force_save_layout = true
 hide_main_screen_buttons = true
 hide_scene_tabs = true
 file_filter_extensions = ".gd"
@@ -25,7 +27,10 @@ file_filter_extensions = ".gd"
 script = ExtResource("2_jn25a")
 workspace_name = "Scenes"
 layout_name = "Scenes"
+filesystem_auto_navigate = "res://addons/workspaces/workspaces_bar.tscn"
+auto_set_file_on_unapply = true
 auto_set_main_screen = "2D"
+force_save_layout = true
 hide_main_screen_buttons = true
 file_filter_extensions = ".tscn"
 auto_switch_on_script = "Scripting"
@@ -34,9 +39,10 @@ auto_switch_on_script = "Scripting"
 script = ExtResource("2_jn25a")
 workspace_name = "Editor Debug"
 layout_name = "Editor Debug"
+force_save_layout = true
 
 [resource]
 script = ExtResource("1_08lb0")
-active_workspace_index = 2
+active_workspace_index = 1
 workspaces = Array[ExtResource("2_jn25a")]([SubResource("Resource_odcxn"), SubResource("Resource_m0b18"), SubResource("Resource_jn25a"), SubResource("Resource_08lb0")])
 metadata/_custom_type_script = "uid://dtj3clcifgqai"
