@@ -51,6 +51,9 @@ var save_or_delete_button: Button
 var cancel_button: Button
 
 func _ready() -> void:
+	if not Engine.is_editor_hint():
+		return
+	
 	layouts_dialog 						= GrapplerBase.base.find_child("?EditorLayoutsDialog*", true, false)
 	layouts_main_vbox 					= layouts_dialog.find_child("?VBoxContainer*", true, false)
 	layouts_item_list_margin_container 	= layouts_main_vbox.get_child(1)
