@@ -127,3 +127,16 @@ static var file_list: ItemList = \
 ## The right-click context menu for filesystem actions.
 static var popup_menu: PopupMenu = \
 	filesystem_dock.get_child(2)
+
+static func open_file(path: String):
+	if path.get_extension() in ["tscn", "scn"]:
+		EditorInterface.open_scene_from_path(path)
+		var root = load(path).instantiate()
+		if root is Node3D:
+			EditorInterface.set_main_screen_editor("3D")
+		else:
+			EditorInterface.set_main_screen_editor("2D")
+	else:
+		EditorInterface.edit_resource(load(path))
+		if path.get_extension() == ".gd":
+			EditorInterface.set_main_screen_editor("Script")
