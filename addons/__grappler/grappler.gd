@@ -27,6 +27,8 @@ extends EditorPlugin
 
 static var ADDON_PATH: String
 
+var inspector_plugin
+
 func _enable_plugin() -> void:
 	add_autoload_singleton("GrapplerBase",          "grappler_base.gd")
 	add_autoload_singleton("GrapplerDocks",         "grappler_docks.gd")
@@ -45,3 +47,9 @@ func _disable_plugin() -> void:
 
 func _enter_tree() -> void:
 	ADDON_PATH = get_script().resource_path.get_base_dir()
+	
+	inspector_plugin = load("%s/grappler_inspector_plugin.gd" % ADDON_PATH).new()
+	add_inspector_plugin(inspector_plugin)
+
+func _exit_tree() -> void:
+	remove_inspector_plugin(inspector_plugin)
